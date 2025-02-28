@@ -1,0 +1,20 @@
+.dashboard {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+}
+
+.nav-mid {
+  margin: 10px;
+  ul {
+    list-style: none;
+  }
+}
+
+.make-payment {
+  width: 950px;
+  text-align: center;
+  margin: 10px;
+}

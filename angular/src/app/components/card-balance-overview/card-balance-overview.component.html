@@ -1,0 +1,15 @@
+<div class="card-balance-overview">
+  <p>Total Balance: {{ balanceOverview.current_balance }}</p>
+  <p *ngIf="balanceOverview.payment_required > 0">
+    Required payment: ${{ balanceOverview.payment_required }}
+  </p>
+  <p *ngIf="balanceOverview.payment_required <= 0">
+    Payment not required at this time
+  </p>
+  <p>
+    Remaining statement balance: ${{
+      balanceOverview.remaining_statement_balance
+    }}
+  </p>
+  <p>Credit Limit: ${{ balanceOverview.credit_limit }}</p>
+</div>

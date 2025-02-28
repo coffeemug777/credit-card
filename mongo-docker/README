@@ -1,0 +1,2 @@
+- run docker-compose up to start mongo server
+- docker desktop to see whats happening in the background
