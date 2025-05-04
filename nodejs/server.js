@@ -248,6 +248,23 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.post("/transaction", async (req, res) => {
+  //console.log("Transaction received: ", req.body);
+  const database = client.db("ccDb");
+  //console.log("Database connected ", database);
+  const cards = database.collection("cards");
+  await cards.deleteMany();
+
+  res.send("transaction complete");
+});
+
+app.get("/account", async (req, res) => {
+  const account = database.collection("account");
+  const result = await account.findOne();
+  console.log("test ", req.query.id, result);
+  res.status(200).send(result);
+});
+
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
