@@ -1,0 +1,1 @@
+- Problem with findone, client must be connected before running operation
