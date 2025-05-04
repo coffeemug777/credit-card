@@ -32,7 +32,7 @@ export class CcService {
     try {
       let response = await firstValueFrom(
         this.http.get<any>(
-          "http://localhost:8080/account?id=67bbb2c799a203195fc2f300"
+          "http://localhost:3000/account?id=67bbb2c799a203195fc2f300"
         )
       );
       console.log("response is ", response);
