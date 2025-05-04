@@ -1,2 +1,16 @@
-- run docker-compose up to start mongo server
+# First
+
+- run docker desktop, start the container
+  OR
+- have docker service daemon up
+- installed docker-compose
+- run docker-compose up to start mongo server (this can cause error sometimes)
+
+# Second
+
 - docker desktop to see whats happening in the background
+- mongo-db compass to see the db
+
+# Third
+
+- run npm start to start the nodejs server
