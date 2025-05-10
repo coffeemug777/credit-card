@@ -14,7 +14,8 @@ body {
 
 .main-wrapper {
   padding: 64px auto;
-  width: 960px;
-  border: 1px solid #eee;
+  //width: 960px;
+  width: 100%;
   padding: 10px;
+  display: flex;
 }
