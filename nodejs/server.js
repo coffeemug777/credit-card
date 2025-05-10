@@ -49,8 +49,8 @@ async function insertCards() {
   const result = await cards.insertMany([visaCard, amexCard]);
   //console.log(`Document/s inserted: ${result}`);
 
-  const query = { name: "Visa" };
-  const card = await cards.findOne(query);
+  //const query = { name: "Visa" };
+  //const card = await cards.findOne(query);
   //console.log("Card is ", card);
 }
 
@@ -237,6 +237,7 @@ async function initRun() {
   } finally {
     // Ensures that the client will close when you finish/error
     //await client.close();
+    console.log("InitRun done");
   }
 }
 
@@ -259,9 +260,8 @@ app.post("/transaction", async (req, res) => {
 });
 
 app.get("/account", async (req, res) => {
-  const account = database.collection("account");
   const result = await account.findOne();
-  console.log("test ", req.query.id, result);
+  //console.log("test ", req.query.id, result);
   res.status(200).send(result);
 });
 
