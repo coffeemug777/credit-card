@@ -43,4 +43,16 @@ export class CcService {
 
     return of(this.persistentAccount);
   }
+
+  async insertTransaction(transaction: any) {
+    console.log("transaction ", transaction);
+    try {
+      const response = await firstValueFrom(
+        this.http.post("http://localhost:3000/transaction", transaction)
+      );
+      console.log("response from transaction insert is ", response);
+    } catch (error) {
+      console.log("Error posting to transaction for insert ", error);
+    }
+  }
 }

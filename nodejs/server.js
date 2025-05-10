@@ -27,6 +27,7 @@ app.use(express.json());
 const database = client.db("ccDb");
 const cards = database.collection("cards");
 const account = database.collection("account");
+const transaction = database.collection("transaction");
 
 async function insertCards() {
   //console.log("Database connected ", database);
@@ -250,13 +251,16 @@ app.get("/", (req, res) => {
 });
 
 app.post("/transaction", async (req, res) => {
-  //console.log("Transaction received: ", req.body);
-  const database = client.db("ccDb");
+  console.log("Transaction received: ", req.body);
+  try {
+    const result = await transaction.insertOne(req.body);
+    res.status(200).send(result);
+  } catch (error) {
+    console.log("Error in inserting to transaction ", error);
+    res.status(500).send("Error " + error);
+  }
   //console.log("Database connected ", database);
-  const cards = database.collection("cards");
-  await cards.deleteMany();
-
-  res.send("transaction complete");
+  //await cards.deleteMany();
 });
 
 app.get("/account", async (req, res) => {
