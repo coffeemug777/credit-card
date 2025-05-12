@@ -261,13 +261,29 @@ app.post("/transaction", async (req, res) => {
   //console.log("Database connected ", database);
   //await cards.deleteMany();
 });
+/**
+ * get transactions by card id,
+ * only return the latest 3 days, and
+ * group them by date
+ */
 
 app.get("/transaction/:card_id", async (req, res) => {
   const card_id = req.params.card_id;
   try {
     const result = await transaction
-      .find({ card_id })
-      .sort({ date: -1 })
+      .aggregate([
+        { $match: {} },
+        {
+          $group: {
+            _id: "$date_group",
+            values: { $push: "$$ROOT" },
+          },
+        },
+        {
+          $sort: { _id: -1 },
+        },
+        { $limit: 3 },
+      ])
       .toArray();
     res.status(200).send(result);
   } catch (error) {
