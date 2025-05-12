@@ -265,7 +265,10 @@ app.post("/transaction", async (req, res) => {
 app.get("/transaction/:card_id", async (req, res) => {
   const card_id = req.params.card_id;
   try {
-    const result = await transaction.find({ card_id }).toArray();
+    const result = await transaction
+      .find({ card_id })
+      .sort({ date: -1 })
+      .toArray();
     res.status(200).send(result);
   } catch (error) {
     console.log("Error in getting card id ", card_id, error);
