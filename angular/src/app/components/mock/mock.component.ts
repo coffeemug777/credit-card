@@ -13,14 +13,21 @@ export class MockComponent {
   ccService = inject(CcService);
 
   onInsertNewTransaction() {
+    const newDate = faker.date.recent();
+
     const newTransaction = {
-      id: "1",
       account_id: "1",
       description: faker.company.name(),
       card_id: "1",
       amount: Math.round(Math.random() * 100 * 100) / 100,
       type: "debit",
-      date: faker.date.recent(),
+      date: newDate.toISOString(),
+      date_group:
+        newDate.getFullYear() +
+        "" +
+        (newDate.getMonth() + 1) +
+        "" +
+        newDate.getDate(),
     };
 
     this.ccService.insertTransaction(newTransaction);
