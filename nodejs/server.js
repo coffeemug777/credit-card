@@ -288,12 +288,22 @@ app.get("/transaction/:card_id", async (req, res) => {
           $sort: { _id: -1 },
         },
         { $limit: 3 },
+        error,
       ])
       .toArray();
     res.status(200).send(result);
   } catch (error) {
     console.log("Error in getting card id ", card_id, error);
     res.status(500).send(error);
+  }
+});
+
+app.get("/transaction/summary/:card_id", async (req, res) => {
+  const card_id = req.params.card_id;
+  try {
+    const result = transaction.aggregate;
+  } catch (error) {
+    console.log("Error in transaction/summary ", error);
   }
 });
 
