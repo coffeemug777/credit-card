@@ -55,6 +55,10 @@ async function insertCards() {
   //console.log("Card is ", card);
 }
 
+async function deleteTransactions() {
+  const result = await transaction.deleteMany();
+}
+
 async function insertAccounts() {
   await account.deleteMany();
   const mockAccount = {
@@ -234,6 +238,7 @@ async function initRun() {
   try {
     await insertCards();
     await insertAccounts();
+    await deleteTransactions();
   } finally {
     // Ensures that the client will close when you finish/error
     //await client.close();
