@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "mysql-server": "nodemon server-mysql.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +14,7 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "mongodb": "6.13",
+    "mysql2": "^3.14.1",
     "nodemon": "^3.1.9"
   }
 }
