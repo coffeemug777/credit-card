@@ -47,18 +47,11 @@ export class MockComponent implements OnInit {
         to: todayDate,
       });
       const newTransaction = {
-        account_id: "1",
+        cardNumber: this.ccService.getActiceCardState().number,
         description: faker.company.name(),
-        card_id: "1",
         amount: Math.round(Math.random() * 100 * 100) / 100,
         type: "debit",
-        date: newDate.toISOString(),
-        date_group:
-          newDate.getFullYear() +
-          "" +
-          (newDate.getMonth() + 1) +
-          "" +
-          newDate.getDate(),
+        date: newDate,
       };
 
       temp.push(newTransaction);
@@ -68,9 +61,17 @@ export class MockComponent implements OnInit {
       (a, b) => new Date(a.date).getUTCDate() - new Date(b.date).getUTCDate()
     );
     temp.forEach((transaction) => {
-      this.ccService.insertTransaction(transaction);
+      this.ccService.insertTransaction(transaction).subscribe({
+        next: () => console.log("Insert alot all done"),
+        error: (error) => console.log("insert alot failed ", error),
+      });
     });
 
     console.log("aaaa ", todayDate, twoMonthDate, temp);
+  }
+
+  onDeleteAll() {
+    console.log("Here");
+    this.ccService.deleteAllTransaction();
   }
 }
