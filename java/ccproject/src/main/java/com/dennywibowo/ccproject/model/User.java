@@ -5,25 +5,24 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class Card {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private String image;
-    private String number;
-    private Long balance;
-    private Long remainingBalance;
-    private Long creditLimit;
+    private String email;
+    private String address;
+    private String phone;
+    private float monthlyIncome;
+    private float annualIncome;
+    private Long activeCard;
+    private String userName;
+    private String password;
 }
