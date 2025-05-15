@@ -3,6 +3,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { faker } from "@faker-js/faker";
 import { CcService } from "../../services/cc.service";
 import { format, sub } from "date-fns";
+import { Transaction } from "../../model/transaction";
 
 @Component({
   selector: "app-mock",
@@ -17,23 +18,22 @@ export class MockComponent implements OnInit {
 
   onInsertNewTransaction() {
     const newDate = faker.date.recent();
-
-    const newTransaction = {
-      account_id: "1",
+    const newTransaction: Transaction = {
+      cardNumber: this.ccService.getActiceCardState().number,
       description: faker.company.name(),
-      card_id: "1",
       amount: Math.round(Math.random() * 100 * 100) / 100,
       type: "debit",
-      date: newDate.toISOString(),
-      date_group:
-        newDate.getFullYear() +
-        "" +
-        (newDate.getMonth() + 1) +
-        "" +
-        newDate.getDate(),
+      date: newDate,
     };
-
-    this.ccService.insertTransaction(newTransaction);
+    console.log("new trans ", newTransaction);
+    this.ccService.insertTransaction(newTransaction).subscribe({
+      next: (response) => {
+        console.log("response from transaction insert is ", response);
+      },
+      error: (error) => {
+        console.log("Error posting to transaction for insert ", error);
+      },
+    });
   }
 
   onTwoMonthsGenerateTransactions() {
