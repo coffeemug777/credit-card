@@ -17,6 +17,7 @@ export class CardActiveComponent implements OnInit {
       next: (response: Card) => {
         console.log("Active card is ", response, response.name);
         this.activeCard = response;
+        this.ccService.setActiveCardState(response);
       },
       error: (error: Error) => {
         console.log("Error getting active Card ", error);
