@@ -28,24 +28,17 @@ export class CcService {
     return false;
   }
 
-  async getRecentActivities(): Promise<any> {
-    try {
-      const response = await firstValueFrom(
-        this.http.get(
-          `${DB_URL}/transaction/${
-            this.persistentAccount.cards[this.persistentAccount.active_card].id
-          }`
-        )
-      );
-      console.log("Response get recent activities ", response);
-      return response;
-    } catch (error) {
-      console.log("Error ", error);
-      return of([]);
-    }
+  getRecentActivities() {
+    console.log(
+      "bbbb ",
+      `${DB_URL}/transaction/get-list?cardNumber=${this.activeCardState.number}`
+    );
+    return this.http.get(
+      `${DB_URL}/transaction/get-list?cardNumber=${this.activeCardState.number}`
+    );
   }
 
-  setPersistenAccount(account: any) {
+  setPersistentAccount(account: any) {
     this.persistentAccount = account;
   }
 
@@ -61,20 +54,22 @@ export class CcService {
     this.activeCardState = card;
   }
 
-  async login() {
-    try {
-      let response = await firstValueFrom(
-        this.http.get<any>(DB_URL + "/user?id=2")
-      );
-      console.log("Login response is ", response);
-      this.setPersistenAccount(response);
-    } catch (error) {
-      console.error("Error in getting an account", error);
-    }
-
-    return of(this.persistentAccount);
+  login(userName: string, password: string) {
+    return this.http.post<any>(DB_URL + "/user/user-name-password", {
+      userName,
+      password,
+    });
   }
 
   insertTransaction = (transaction: any) =>
     this.http.post(DB_URL + "/transaction", transaction);
+
+  deleteAllTransaction() {
+    this.http
+      .post(DB_URL + "/transaction/delete-all", { deleteAll: true })
+      .subscribe({
+        next: () => console.log("Delete all done"),
+        error: (error) => console.log("Delete all transaction failed ", error),
+      });
+  }
 }
