@@ -1,19 +1,26 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CcService } from '../../services/cc.service';
+import { Component, inject, OnInit } from "@angular/core";
+import { CcService } from "../../services/cc.service";
+import { Card } from "../../model/card";
 
 @Component({
-  selector: 'app-card-active',
+  selector: "app-card-active",
   imports: [],
-  templateUrl: './card-active.component.html',
-  styleUrl: './card-active.component.scss',
+  templateUrl: "./card-active.component.html",
+  styleUrl: "./card-active.component.scss",
 })
 export class CardActiveComponent implements OnInit {
   private ccService = inject(CcService);
-  activeCard: any;
+  activeCard: Card = {} as Card;
 
-  ngOnInit(): void {
-    this.activeCard = this.ccService.getActiveCard();
-
-    console.log('Active card: ', this.activeCard);
+  ngOnInit() {
+    this.ccService.getActiveCard().subscribe({
+      next: (response: Card) => {
+        console.log("Active card is ", response, response.name);
+        this.activeCard = response;
+      },
+      error: (error: Error) => {
+        console.log("Error getting active Card ", error);
+      },
+    });
   }
 }
