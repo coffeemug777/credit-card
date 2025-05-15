@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { CcService } from "../../services/cc.service";
+import { Card } from "../../model/card";
 
 @Component({
   selector: "app-card-image",
@@ -11,7 +12,17 @@ export class CardImageComponent implements OnInit {
   private ccService = inject(CcService);
 
   imageUrl: string = "";
+
   ngOnInit() {
-    this.imageUrl = this.ccService.getActiveCard()["image"];
+    this.ccService.getActiveCard().subscribe({
+      next: (response: Card) => {
+        console.log("Active card Image is ", response.image);
+        this.imageUrl = response.image;
+        this.ccService.setActiveCardState(response);
+      },
+      error: (error: Error) => {
+        console.log("Error getting active Card Image", error);
+      },
+    });
   }
 }
