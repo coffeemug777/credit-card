@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AccountService {
+public class CardService {
     @Autowired
-    private static CardRepository cardRepository;
+    CardRepository cardRepository;
 
     public Card saveCard(Card card) {
         return cardRepository.save(card);
@@ -18,5 +18,9 @@ public class AccountService {
 
     public List<Card> saveAllCard(List<Card> cards) {
         return cardRepository.saveAll(cards);
+    }
+
+    public Card getCardById(Long id) {
+        return cardRepository.getReferenceById(id);
     }
 }
