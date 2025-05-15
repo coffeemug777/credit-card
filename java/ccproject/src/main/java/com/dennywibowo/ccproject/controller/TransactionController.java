@@ -23,4 +23,9 @@ public class TransactionController {
     public List<Transaction> getTransactions(@RequestParam("cardNumber") String cardNumber) {
         return transactionService.findByCardNumber(cardNumber);
     }
+
+    @PostMapping("/delete-all")
+    public void deleteAll() {
+        transactionService.deleteAll();
+    }
 }

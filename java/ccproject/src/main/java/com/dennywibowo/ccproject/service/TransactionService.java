@@ -18,4 +18,8 @@ public class TransactionService {
     public List<Transaction> findByCardNumber(String cardNumber) {
         return transactionRepository.findByCardNumber(cardNumber);
     }
+
+    public void deleteAll() {
+        transactionRepository.deleteAll();
+    }
 }
