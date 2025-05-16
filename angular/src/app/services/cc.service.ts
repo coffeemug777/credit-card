@@ -1,9 +1,9 @@
 import { inject, Injectable } from "@angular/core";
 import mockData from "../../assets/mock.json";
-import { firstValueFrom, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Card } from "../model/card";
 import { Transaction } from "../model/transaction";
+
 const DB_URL = "http://localhost:8080";
 
 @Injectable({
