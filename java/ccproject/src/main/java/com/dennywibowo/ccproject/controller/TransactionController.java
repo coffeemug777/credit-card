@@ -38,7 +38,7 @@ public class TransactionController {
         LocalDate localLatestDate = latestDate.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
-        LocalDate localStartDate = localLatestDate.minusDays(3);
+        LocalDate localStartDate = localLatestDate.minusDays(2);
         ZoneId defaultZoneId = ZoneId.systemDefault();
         Instant localStartDateInstant = localStartDate.atStartOfDay(defaultZoneId).toInstant();
         Date startDate = Date.from(localStartDateInstant);
