@@ -14,15 +14,6 @@ export class CardImageComponent implements OnInit {
   imageUrl: string = "";
 
   ngOnInit() {
-    this.ccService.getActiveCard().subscribe({
-      next: (response: Card) => {
-        console.log("Active card Image is ", response.image);
-        this.imageUrl = response.image;
-        this.ccService.setActiveCardState(response);
-      },
-      error: (error: Error) => {
-        console.log("Error getting active Card Image", error);
-      },
-    });
+    this.imageUrl = this.ccService.getActiceCardState().image;
   }
 }

@@ -13,15 +13,6 @@ export class CardActiveComponent implements OnInit {
   activeCard: Card = {} as Card;
 
   ngOnInit() {
-    this.ccService.getActiveCard().subscribe({
-      next: (response: Card) => {
-        console.log("Active card is ", response, response.name);
-        this.activeCard = response;
-        this.ccService.setActiveCardState(response);
-      },
-      error: (error: Error) => {
-        console.log("Error getting active Card ", error);
-      },
-    });
+    this.activeCard = this.ccService.getActiceCardState();
   }
 }
