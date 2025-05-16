@@ -29,12 +29,8 @@ export class CcService {
   }
 
   getRecentActivities() {
-    console.log(
-      "bbbb ",
-      `${DB_URL}/transaction/get-list?cardNumber=${this.activeCardState.number}`
-    );
     return this.http.get(
-      `${DB_URL}/transaction/get-list?cardNumber=${this.activeCardState.number}`
+      `${DB_URL}/transaction/get-recent?cardNumber=${this.activeCardState.number}`
     );
   }
 
