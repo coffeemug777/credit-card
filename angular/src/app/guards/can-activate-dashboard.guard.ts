@@ -10,7 +10,7 @@ export const canActivateDashboardGuard: CanActivateFn = async (
   const ccService = inject(CcService);
 
   //TODO: probably use localStorage here instead of calling login here.
-  ccService.setPersistentAccount(
+  ccService.setPersistentUser(
     await firstValueFrom(ccService.login("Johndoe", "password123"))
   );
   ccService.setActiveCardState(await firstValueFrom(ccService.getActiveCard()));

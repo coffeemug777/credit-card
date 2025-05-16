@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       .login(this.userName.value || "", this.password.value || "")
       .subscribe({
         next: async (response) => {
-          this.ccService.setPersistentAccount(response);
+          this.ccService.setPersistentUser(response);
 
           this.ccService.setActiveCardState(
             await firstValueFrom(this.ccService.getActiveCard())
