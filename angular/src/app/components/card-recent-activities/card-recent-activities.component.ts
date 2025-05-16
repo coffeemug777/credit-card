@@ -19,16 +19,13 @@ export class CardRecentActivitiesComponent implements OnInit {
   ngOnInit() {
     this.ccService.getRecentActivities().subscribe({
       next: (response) => {
-        console.log("Card Recent activities ", response);
-
         // group by date no time
         response.forEach((item) => {
           const date = new Date(item.date);
           const dateString =
             date.getFullYear() +
             "-" +
-            date.getMonth() +
-            1 +
+            (date.getMonth() + 1) +
             "-" +
             date.getDate();
 
@@ -39,7 +36,14 @@ export class CardRecentActivitiesComponent implements OnInit {
 
         // create sortedKeys because Angular doesn't respect Map sort
         this.sortedKeys = Array.from(this.transactionsMap.keys()).sort(
-          (a: any, b: any) => new Date(b).valueOf() - new Date(a).valueOf()
+          (a: string, b: string) =>
+            new Date(b).valueOf() - new Date(a).valueOf()
+        );
+        console.log(
+          "Card Recent activities ",
+          response,
+          this.sortedKeys,
+          this.transactionsMap
         );
       },
       error: (error) => {
