@@ -10,12 +10,41 @@ import { CurrencyPipe, DatePipe, NgFor, NgIf } from "@angular/common";
 })
 export class CardRecentActivitiesComponent implements OnInit {
   private ccService = inject(CcService);
-  transaction: any;
+  transactionsMap = new Map();
+  sortedKeys: string[] = [];
 
   /** ngOnInit
-   * get raw transactions, then group them byday
+   * get raw transactionsMaps, then group them byday
    */
-  async ngOnInit(): Promise<void> {
-    this.transaction = (await this.ccService.getRecentActivities()) || [];
+  ngOnInit() {
+    this.ccService.getRecentActivities().subscribe({
+      next: (response) => {
+        console.log("Card Recent activities ", response);
+
+        // group by date no time
+        response.forEach((item) => {
+          const date = new Date(item.date);
+          const dateString =
+            date.getFullYear() +
+            "-" +
+            date.getMonth() +
+            1 +
+            "-" +
+            date.getDate();
+
+          this.transactionsMap.has(dateString)
+            ? this.transactionsMap.get(dateString).push(item)
+            : this.transactionsMap.set(dateString, [item]);
+        });
+
+        // create sortedKeys because Angular doesn't respect Map sort
+        this.sortedKeys = Array.from(this.transactionsMap.keys()).sort(
+          (a: any, b: any) => new Date(b).valueOf() - new Date(a).valueOf()
+        );
+      },
+      error: (error) => {
+        console.log("Card Recent activities Error ", error);
+      },
+    });
   }
 }

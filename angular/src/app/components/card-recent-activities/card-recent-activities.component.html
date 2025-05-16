@@ -1,9 +1,9 @@
 <div class="card-recent-activities">
   <h2>Recent Activities</h2>
-  <div class="transaction" *ngFor="let item of transaction">
-    <h3>{{ item.values[0]?.date | date }}</h3>
-    <ul *ngIf="item.values.length">
-      <li *ngFor="let transactionItem of item.values">
+  <div class="transaction" *ngFor="let key of sortedKeys">
+    <h3>{{ key | date }}</h3>
+    <ul *ngIf="transactionsMap.has(key)">
+      <li *ngFor="let transactionItem of transactionsMap.get(key)">
         {{ transactionItem.description }} -
         <em>{{ transactionItem.amount | currency }}</em>
       </li>
