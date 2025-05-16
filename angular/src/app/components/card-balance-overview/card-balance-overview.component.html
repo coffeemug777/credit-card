@@ -1,13 +1,13 @@
 <div class="card-balance-overview">
-  <p>Total Balance: {{ balanceOverview?.current_balance | currency }}</p>
-  <p *ngIf="balanceOverview?.payment_required > 0">Required payment:</p>
+  <p>Total Balance: {{ balanceOverview.current_balance | currency }}</p>
+  <p *ngIf="balanceOverview.payment_required > 0">Required payment:</p>
 
-  <p *ngIf="balanceOverview?.payment_required <= 0">
+  <p *ngIf="balanceOverview.payment_required <= 0">
     Payment not required at this time
   </p>
   <p>
     Remaining statement balance:
-    {{ balanceOverview?.remaining_statement_balance | currency }}
+    {{ balanceOverview.remaining_statement_balance | currency }}
   </p>
-  <p>Credit Limit: {{ balanceOverview?.credit_limit | currency }}</p>
+  <p>Credit Limit: {{ balanceOverview.credit_limit | currency }}</p>
 </div>

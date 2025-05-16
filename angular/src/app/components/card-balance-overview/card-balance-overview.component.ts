@@ -12,7 +12,17 @@ import { isWithinInterval, startOfMonth, addDays } from "date-fns";
 })
 export class CardBalanceOverviewComponent implements OnInit {
   private ccService = inject(CcService);
-  balanceOverview: any;
+  balanceOverview: {
+    current_balance: number;
+    payment_required: number;
+    remaining_statement_balance: number;
+    credit_limit: number;
+  } = {
+    current_balance: 0,
+    payment_required: 0,
+    remaining_statement_balance: 0,
+    credit_limit: 0,
+  };
 
   /**
    * balance overview
@@ -22,29 +32,25 @@ export class CardBalanceOverviewComponent implements OnInit {
    * remaining statement balance if there is a debt from last or more money not paid in full
    */
   ngOnInit(): void {
-    this.ccService.getActiveCard().subscribe({
-      next: (response: Card) => {
-        const newDate = new Date();
-        const start = startOfMonth(newDate);
-        const end = addDays(start, 7);
-        this.balanceOverview = {
-          current_balance: response.balance,
-          payment_required: isWithinInterval(newDate, { start, end }),
-          remaining_statement_balance: response.remainingBalance,
-          credit_limit: response.creditLimit,
-        };
-        console.log(
-          "Balance overview is",
-          this.balanceOverview,
-          newDate,
-          start,
-          end
-        );
-        this.ccService.setActiveCardState(response);
-      },
-      error: (error: Error) => {
-        console.log("Error getting active Card Image", error);
-      },
-    });
+    const activeCard = this.ccService.getActiceCardState();
+    const newDate = new Date();
+    const start = startOfMonth(newDate);
+    const end = addDays(start, 7);
+    this.balanceOverview = {
+      current_balance: activeCard.balance,
+      payment_required: isWithinInterval(newDate, { start, end })
+        ? 0
+        : activeCard.balance ?? 0,
+      remaining_statement_balance: activeCard.remainingBalance,
+      credit_limit: activeCard.creditLimit,
+    };
+
+    console.log(
+      "Balance overview is",
+      this.balanceOverview,
+      newDate,
+      start,
+      end
+    );
   }
 }
