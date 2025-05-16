@@ -3,6 +3,7 @@ import mockData from "../../assets/mock.json";
 import { HttpClient } from "@angular/common/http";
 import { Card } from "../model/card";
 import { Transaction } from "../model/transaction";
+import { User } from "../model/user";
 
 const DB_URL = "http://localhost:8080";
 
@@ -10,20 +11,18 @@ const DB_URL = "http://localhost:8080";
   providedIn: "root",
 })
 export class CcService {
-  private persistentAccount: any;
+  private persistentUser: User;
   private activeCardState: Card;
   private http: HttpClient = inject(HttpClient);
 
   constructor() {
     console.log("Mock data ", mockData);
-    this.persistentAccount = null;
+    this.persistentUser = {} as User;
     this.activeCardState = {} as Card;
   }
 
   getActiveCard = () =>
-    this.http.get<Card>(
-      `${DB_URL}/card?id=${this.persistentAccount.activeCard}`
-    );
+    this.http.get<Card>(`${DB_URL}/card?id=${this.persistentUser.activeCard}`);
 
   getBalanceOverview() {
     return false;
@@ -35,12 +34,12 @@ export class CcService {
     );
   }
 
-  setPersistentAccount(account: any) {
-    this.persistentAccount = account;
+  setPersistentUser(user: User) {
+    this.persistentUser = user;
   }
 
   getPersistenAccount() {
-    return this.persistentAccount;
+    return this.persistentUser;
   }
 
   getActiceCardState() {
@@ -58,7 +57,7 @@ export class CcService {
     });
   }
 
-  insertTransaction = (transaction: any) =>
+  insertTransaction = (transaction: Transaction) =>
     this.http.post(DB_URL + "/transaction", transaction);
 
   deleteAllTransaction() {
