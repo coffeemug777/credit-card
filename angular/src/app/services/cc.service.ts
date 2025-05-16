@@ -3,6 +3,7 @@ import mockData from "../../assets/mock.json";
 import { firstValueFrom, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Card } from "../model/card";
+import { Transaction } from "../model/transaction";
 const DB_URL = "http://localhost:8080";
 
 @Injectable({
@@ -29,7 +30,7 @@ export class CcService {
   }
 
   getRecentActivities() {
-    return this.http.get(
+    return this.http.get<Transaction[]>(
       `${DB_URL}/transaction/get-recent?cardNumber=${this.activeCardState.number}`
     );
   }
